@@ -14,5 +14,16 @@
 
   ![alt text](image.png)
 
+  ## 2. Making Changes and Running
+
+  IN order to run the cloned repo we could run the following shell commands:
+
+  ```sh
+    cd Personal-Finance-Tracker
+    npm install
+    npm run dev
+  ```
+
   Then, we can stage the changes and commit.
+
 
