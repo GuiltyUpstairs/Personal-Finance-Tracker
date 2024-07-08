@@ -4,6 +4,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { read, readdirSync } from "fs";
 
 // Route Imports
 import incomeRoutes from './routes/transactions.js';
@@ -37,7 +38,8 @@ app.use((err, req, res, next)=>{
   });
 });
 
-// Routes
+// User-defined Middlewares
+app.use('/api/incomes', incomeRoutes);
 
 // Main Init.
 app.listen(PORT, ()=>{

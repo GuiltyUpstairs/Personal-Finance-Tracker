@@ -11,6 +11,6 @@ router.get('/', (req, res)=>{
 });
 
 // CRUD Operations
-router.post('/income', addIncome);
+router.post('/add-income', addIncome);
 
 export default router;
