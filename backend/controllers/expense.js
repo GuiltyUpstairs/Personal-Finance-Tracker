@@ -5,8 +5,8 @@
 // IMPORTS
 import Expense from "../models/Expense.js";
 import { createError } from "../error.js";
-//  Expense Controllers
 
+//  Expense Controllers
 // AddExpense --> To show an incoming Transaction
 export const addExpense = (req, res, next)=>{
   const {title, amount, transactionType, category, description, date} = req.body;
