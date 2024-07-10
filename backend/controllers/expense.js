@@ -1,3 +1,8 @@
+/* Test functions
+    Must be made async to perform transactions
+*/
+
+// IMPORTS
 import Expense from "../models/Expense.js";
 import { createError } from "../error.js";
 //  Expense Controllers
@@ -6,7 +11,7 @@ import { createError } from "../error.js";
 export const addExpense = (req, res, next)=>{
   const {title, amount, transactionType, category, description, date} = req.body;
 
-  const income = Income({
+  const expense = Expense({
     title,
     amount,
     transactionType,
@@ -23,7 +28,7 @@ export const addExpense = (req, res, next)=>{
       return next(createError(401, "Status: Incorrect Amount"))
     }
     else{
-      res.status(201).json({income})
+      res.status(201).json({expense})
     }
   }catch(err){
     next(createError(err.status, err.message))
@@ -32,7 +37,7 @@ export const addExpense = (req, res, next)=>{
 
 // GetExpense
 
-export const getExpense = (req, res, next)=>{
+export const getExpenses = (req, res, next)=>{
   try{
     res.status(201).json({"Status": "Success"})
   }catch(err){
