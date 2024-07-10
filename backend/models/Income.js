@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const IncomeSchema = new mongoose.Schema({
-  heading: {
+  tite: {
     type: String,
     required: true,
     maxLength: 50
