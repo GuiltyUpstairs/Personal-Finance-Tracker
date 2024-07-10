@@ -1,6 +1,6 @@
 // IMPORTS
 import express from 'express';
-import { addIncome } from '../controllers/income.js';
+import { addIncome, getIncomes, editIncome, deleteIncome } from '../controllers/income.js';
 
 // Routing Init.
 const router = express.Router();
@@ -13,4 +13,9 @@ router.get('/', (req, res)=>{
 // CRUD Operations
 router.post('/add-income', addIncome);
 
+router.get('/get-incomes', getIncomes);
+
+router.put('/edit-income', editIncome);
+
+router.delete('/delete-income/:id', deleteIncome);
 export default router;

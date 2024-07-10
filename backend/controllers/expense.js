@@ -1,9 +1,9 @@
-import Income from "../models/Income.js";
+import Expense from "../models/Expense.js";
 import { createError } from "../error.js";
-//  Income Controllers
+//  Expense Controllers
 
-// AddIncome --> To show an incoming Transaction
-export const addIncome = (req, res, next)=>{
+// AddExpense --> To show an incoming Transaction
+export const addExpense = (req, res, next)=>{
   const {title, amount, transactionType, category, description, date} = req.body;
 
   const income = Income({
@@ -30,9 +30,9 @@ export const addIncome = (req, res, next)=>{
   }
 }
 
-// GetIncomes
+// GetExpense
 
-export const getIncomes = (req, res, next)=>{
+export const getExpense = (req, res, next)=>{
   try{
     res.status(201).json({"Status": "Success"})
   }catch(err){
@@ -40,7 +40,7 @@ export const getIncomes = (req, res, next)=>{
   }
 }
 
-export const editIncome = (req, res, next)=>{
+export const editExpense = (req, res, next)=>{
   try{
     res.status(201).json({"Status": "Edited"})
   }catch(err){
@@ -48,7 +48,7 @@ export const editIncome = (req, res, next)=>{
   }
 }
 
-export const deleteIncome = (req, res, next)=>{
+export const deleteExpense = (req, res, next)=>{
   try{
     res.status(201).json({"Status": "Deleted"})
   }catch(err){

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const IncomeSchema = new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -14,7 +14,7 @@ const IncomeSchema = new mongoose.Schema({
   },
   transactionType: {
     type: String,
-    default: "Bank Transfer"
+    default: "UPI"
   },
   date: {
     type: Date,
@@ -31,4 +31,4 @@ const IncomeSchema = new mongoose.Schema({
   }
 },{timestamps: true})
 
-export default mongoose.model("Income", IncomeSchema);
+export default mongoose.model("Expense", ExpenseSchema);
