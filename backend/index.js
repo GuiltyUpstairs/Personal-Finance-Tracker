@@ -4,8 +4,9 @@
 import express from "express";
 import dotenv from 'dotenv';
 import cors from 'cors';
+import mongoose from 'mongoose';  
 // import { read, readdirSync } from "fs";
-
+const url = `mongodb+srv://admin:QXowHEUAMTVWfBcP@financetrackerapp.pad0cng.mongodb.net/finance_tracker?retryWrites=true&w=majority&appName=FinanceTrackerApp`;
 // Route Imports
 import incomeRoutes from './routes/transactions.js';
 
@@ -24,7 +25,13 @@ app.use(express.urlencoded({extended: false})); // Enabling URL-encoded request
 app.use(cors()); // Enabling Cross-Origin Resource Sharing
 
 // MongoDB Init.
-
+mongoose.connect(url)
+  .then(() => {
+    console.log('Connection is Established');
+  })
+  .catch((err) => {
+    console.log('Error connecting to the database', err.message);
+  });
 
 // Controllers Error Handling
 app.use((err, req, res, next)=>{
