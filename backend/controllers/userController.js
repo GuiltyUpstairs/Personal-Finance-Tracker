@@ -65,7 +65,11 @@ export const deleteUser = async (req, res, next) => {
 export const getAllUsers = async (req, res, next) => {
     try {
         const users = await User.find({});
-        res.status(200).json(users);
+
+        // Destructuring the array to hide passwords in the response
+        const safetyMesh = users.map(({_doc: {password, __v, ...others}})=>others);
+        
+        res.status(200).json(safetyMesh);
     } catch (err) {
         next(createError(500, err.message));
     }

@@ -22,7 +22,7 @@ dotenv.config();
 const PORT = process.env.PORT || 8800;
 
 // Pre-defined Middlewares
-app.use(express.cookieParser); // Enabling Cookie Parser
+app.use(cookieParser()); // Enabling Cookie Parser
 app.use(express.json()); // Enabling JSON Request
 app.use(express.urlencoded({extended: false})); // Enabling URL-encoded request
 app.use(cors()); // Enabling Cross-Origin Resource Sharing
