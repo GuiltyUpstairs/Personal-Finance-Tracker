@@ -4,9 +4,9 @@
 import express from "express";
 import dotenv from 'dotenv';
 import cors from 'cors';
-import mongoose from 'mongoose';  
-// import { read, readdirSync } from "fs";
-const url = `mongodb+srv://admin:QXowHEUAMTVWfBcP@financetrackerapp.pad0cng.mongodb.net/finance_tracker?retryWrites=true&w=majority&appName=FinanceTrackerApp`;
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';  
+
 // Route Imports
 import incomeRoutes from './routes/incomeRoute.js';
 import expenseRoutes from './routes/expenseRoute.js';
@@ -22,18 +22,22 @@ dotenv.config();
 const PORT = process.env.PORT || 8800;
 
 // Pre-defined Middlewares
+app.use(express.cookieParser); // Enabling Cookie Parser
 app.use(express.json()); // Enabling JSON Request
 app.use(express.urlencoded({extended: false})); // Enabling URL-encoded request
 app.use(cors()); // Enabling Cross-Origin Resource Sharing
 
 // MongoDB Init.
-mongoose.connect(url)
+const connectDB = ()=>{
+  mongoose
+  .connect(process.env.URL)
   .then(() => {
     console.log('Connection is Established');
   })
   .catch((err) => {
     console.log('Error connecting to the database', err.message);
   });
+}
 
 // Controllers Error Handling
 app.use((err, req, res, next)=>{
@@ -54,5 +58,6 @@ app.use('/api/users', userRoutes);
 
 // Main Init.
 app.listen(PORT, ()=>{
+  connectDB()
   console.log(`PORT: ${PORT}`)
 });
