@@ -1,6 +1,3 @@
-/* Test functions
-    Must be made async to perform transactions
-*/
 
 // IMPORTS
 import Expense from "../models/Expense.js";
@@ -8,7 +5,7 @@ import { createError } from "../error.js";
 
 //  Expense Controllers
 // AddExpense --> To show an incoming Transaction
-export const addExpense = (req, res, next)=>{
+export const addExpense = async (req, res, next)=>{
   const {title, amount, transactionType, category, description, date} = req.body;
 
   const expense = Expense({
@@ -28,6 +25,7 @@ export const addExpense = (req, res, next)=>{
       return next(createError(401, "Status: Incorrect Amount"))
     }
     else{
+      await expense.save();
       res.status(201).json({expense})
     }
   }catch(err){
@@ -37,26 +35,39 @@ export const addExpense = (req, res, next)=>{
 
 // GetExpense
 
-export const getExpenses = (req, res, next)=>{
+export const getExpenses = async (req, res, next)=>{
   try{
-    res.status(201).json({"Status": "Success"})
+    const expense = await Expense.find({});
+    res.status(200).json(expense);
   }catch(err){
     next(createError(err))
   }
 }
 
-export const editExpense = (req, res, next)=>{
-  try{
-    res.status(201).json({"Status": "Edited"})
-  }catch(err){
-    next(createError(err.status, err.message))
+// EditExpense
+export const editExpense = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const updateExpense = await Expense.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updateExpense) {
+      return next(createError(404, "Expense not found"));
+    }
+    res.status(200).json(updateExpense);
+  } catch (err) {
+    next(createError(500, err.message));
   }
 }
 
-export const deleteExpense = (req, res, next)=>{
-  try{
-    res.status(201).json({"Status": "Deleted"})
-  }catch(err){
-    next(createError(err));
+// DeleteExpense
+export const deleteExpense = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deletedExpense = await Expense.findByIdAndDelete(id);
+    if (!deletedExpense) {
+      return next(createError(404, "Expense not found"));
+    }
+    res.status(200).json({ message: "Expense deleted successfully" });
+  } catch (err) {
+    next(createError(500, err.message));
   }
 }

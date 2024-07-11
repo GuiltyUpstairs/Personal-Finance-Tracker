@@ -8,7 +8,8 @@ import mongoose from 'mongoose';
 // import { read, readdirSync } from "fs";
 const url = `mongodb+srv://admin:QXowHEUAMTVWfBcP@financetrackerapp.pad0cng.mongodb.net/finance_tracker?retryWrites=true&w=majority&appName=FinanceTrackerApp`;
 // Route Imports
-import incomeRoutes from './routes/transactions.js';
+import incomeRoutes from './routes/incomeRoute.js';
+import expenseRoutes from './routes/expenseRoute.js';
 
 // Initialisation of App
 const app = express();
@@ -47,6 +48,7 @@ app.use((err, req, res, next)=>{
 
 // User-defined Middlewares
 app.use('/api/income', incomeRoutes);
+app.use('/api/expense', expenseRoutes);
 
 // Main Init.
 app.listen(PORT, ()=>{
