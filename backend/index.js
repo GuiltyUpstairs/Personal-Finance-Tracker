@@ -10,6 +10,7 @@ const url = `mongodb+srv://admin:QXowHEUAMTVWfBcP@financetrackerapp.pad0cng.mong
 // Route Imports
 import incomeRoutes from './routes/incomeRoute.js';
 import expenseRoutes from './routes/expenseRoute.js';
+import userRoutes from './routes/userRoute.js';
 
 // Initialisation of App
 const app = express();
@@ -49,6 +50,7 @@ app.use((err, req, res, next)=>{
 // User-defined Middlewares
 app.use('/api/income', incomeRoutes);
 app.use('/api/expense', expenseRoutes);
+app.use('/api/users', userRoutes);
 
 // Main Init.
 app.listen(PORT, ()=>{
