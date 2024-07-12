@@ -1,11 +1,21 @@
+// IMPORTS
 import Income from "../models/Income.js";
 import { createError } from "../error.js";
-//  Income Controllers
+
+/* Controllers for Expenses:
+
+    Sl.No     Method         Type
+      1.    addIncome       CREATE
+      2.    getIncomes      READ
+      3.    editIncome      UPDATE
+      4.    deleteIncome    DELETE
+*/
 
 // AddIncome --> To show an incoming Transaction
 export const addIncome = async (req, res, next)=>{
   const {title, amount, transactionType, category, description, date} = req.body;
 
+  // Referencing to the Income Schema
   const income = Income({
     title,
     amount,
@@ -16,13 +26,16 @@ export const addIncome = async (req, res, next)=>{
   })
 
   try{
+    // To check if All required fields have been filled
     if(!title || !amount || !date || !category){
       return next(createError(400, "Status: Please Fill the required fields"))
     }
+    // To prevent amount from being negative or zero
     if(amount < 0|| amount == 0){
       return next(createError(401, "Status: Incorrect Amount"))
     }
     else{
+      // Async save to MongoDB
       await income.save();
       res.status(201).json({income})
     }
@@ -31,8 +44,7 @@ export const addIncome = async (req, res, next)=>{
   }
 }
 
-// GetIncomes
-
+// GetIncomes --> To get a list of all the income transactions asunc from MongoDB
 export const getIncomes = async (req, res, next)=>{
   try{
     const incomes = await Income.find({});

@@ -2,7 +2,7 @@
 import Expense from "../models/Expense.js";
 import { createError } from "../error.js";
 
-//  Expense Controllers
+
 /* Controllers for Expenses:
 
     Sl.No     Method         Type
@@ -36,6 +36,7 @@ export const addExpense = async (req, res, next)=>{
       return next(createError(401, "Status: Incorrect Amount"))
     }
     else{
+      // Async save to MongoDB
       await expense.save();
       res.status(201).json({expense});
     }
