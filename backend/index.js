@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';  
 
 // Route Imports
+import authRoutes from './routes/authRoute.js'
 import incomeRoutes from './routes/incomeRoute.js';
 import expenseRoutes from './routes/expenseRoute.js';
 import userRoutes from './routes/userRoute.js';
@@ -52,6 +53,7 @@ app.use((err, req, res, next)=>{
 });
 
 // User-defined Middlewares
+app.use('/api/auth', authRoutes);
 app.use('/api/income', incomeRoutes);
 app.use('/api/expense', expenseRoutes);
 app.use('/api/users', userRoutes);
