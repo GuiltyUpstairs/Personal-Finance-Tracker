@@ -1,86 +1,47 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const commonFields = [
-  { controlId: "Name", label: "Name", type: "text" },
+  { controlId: "name", label: "Name", type: "text" },
   { controlId: "email", label: "Email", type: "email" },
   { controlId: "password", label: "Password", type: "password" },
 ];
 
 const Registration = () => {
   const [formData, setFormData] = useState({
-    Name: "",
+    name: "",
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       const response = await fetch("http://localhost:5100/register", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           email: formData.email,
-//           password: formData.password,
-//         }),
-//         body: JSON.stringify({
-//           firstName: formData.firstName,
-//           lastName: formData.lastName,
-//           username: formData.username,
-//           email: formData.email,
-//           password: formData.password,
-//         }),
-//       });
-
-//       if (response.ok) {
-//         const data = await response.json();
-//         console.log("Registration successful:", data);
-//         navigate("/login");
-//       } else {
-//         alert("Registration failed");
-//       }
-//     } catch (error) {
-//       alert("Error during registration:", error);
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   
-//     try {
-//       const response = await fetch("http://localhost:5100/register", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           firstname: formData.firstName,
-//           lastname: formData.lastName,
-//           username: formData.username,
-//           email: formData.email,
-//           password: formData.password,
-//         }),
-//       });
+    try {
+      const response = await axios.post("http://localhost:8800/api/users/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
   
-//       if (response.ok) {
-//         const data = await response.json();
-//         console.log("Registration successful:", data);
-//         navigate("/login");
-//       } else {
-//         alert("Registration failed");
-//       }
-//     } catch (error) {
-//       alert("Error during registration:", error);
-//     }
-//   };
-  
+      if (response.status === 201) {
+        console.log("Registration successful:", response.data);
+        navigate("/login");
+      } else {
+        alert("Registration failed");
+      }
+    } catch (error) {
+      alert("Error during registration:", error.message);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -95,8 +56,7 @@ const Registration = () => {
       <Card className="shadow p-4" style={{ width: "400px" }}>
         <Card.Body>
           <h2 className="mb-4">Sign Up</h2>
-          {/* <Form onSubmit={handleSubmit}> */}
-          <Form>
+          <Form onSubmit={handleSubmit}>
             {commonFields.map((field) => (
               <Form.Group
                 style={{ textAlign: "start", marginBottom: "10px" }}
@@ -121,9 +81,6 @@ const Registration = () => {
           <p>
             Already have an account? <Link to="/login">Log In</Link>
           </p>
-          {/* <div className="w-100 text-center mt-3">
-                        
-                    </div> */}
         </Card.Body>
       </Card>
     </Container>
