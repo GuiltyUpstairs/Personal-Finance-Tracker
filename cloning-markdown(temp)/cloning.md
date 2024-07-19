@@ -27,3 +27,8 @@
   Then, we can stage the changes and commit.
 
 
+
+cd frontend
+npm start
+
+# Other environment variables as needed
